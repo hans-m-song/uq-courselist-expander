@@ -21,7 +21,7 @@
     const scrapeCourseData = (dom) => {
         const summary = Array.from(dom.querySelectorAll(selectors.summary))
             .reduce((summary, el) => {
-                summary[el.id.replace(/course-/, '')] = el.innerText;
+                summary[el.id.replace(/course-/, '')] = el.innerText.trim();
                 return summary;
             }, {});
         
