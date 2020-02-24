@@ -1,3 +1,13 @@
+// ==UserScript==
+// @name         UQ course list expander
+// @namespace    http://tampermonkey.net/
+// @version      0.1
+// @description  try to take over the world!
+// @author       You
+// @match        https://my.uq.edu.au/programs-courses/plan_display.html?acad_plan=*
+// @grant        none
+// ==/UserScript==
+
 (() => {
     const selectors = {
         header: 'thead tr',
@@ -44,7 +54,7 @@
 
     const appendData = (row, dataPromise) => {
         appendCell(row, dataPromise.then((data) => data.summary.prerequisite || ''));
-        appendCell(row, dataPromise.then((data) => data.summary.semesters.join(', ').replace(/\s|Semester/g, '')));
+        appendCell(row, dataPromise.then((data) => data.summary.semesters.map((sem) => sem.replace(/Semester|\s/g, '')).join(', ')));
     };
 
     const applyToRow = async (row) => {
@@ -82,4 +92,4 @@
     };
 
     scrapePage();
-})()
+})();
